@@ -11,17 +11,17 @@ def decompose_to_lu(a):
     u = np.zeros((n, n))
 
     for j in range(n):
-        for i in range(n):
-            if i <= j:
-                s = 0
-                for k in range(i):
-                    s += (l[i][k] * u[k][j])
-                u[i][j] = a[i][j] - s
-            else:
-                s = 0
-                for k in range(i):
-                    s += (l[i][k] * u[k][j])
-                l[i][j] = (a[i][j] - s) / u[j][j]
+        for i in range(j+1):
+            s = 0
+            for k in range(i):
+                s += (l[i][k] * u[k][j])
+            u[i][j] = a[i][j] - s
+        for i in range(j+1, n):
+            s = 0
+            for k in range(i):
+                s += (l[i][k] * u[k][j])
+            l[i][j] = (a[i][j] - s) / u[j][j]
+
     return l, u
 
 
